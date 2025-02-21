@@ -1,9 +1,63 @@
 .to-do-list{
     text-align: center;
-    margin-top: 100px;
 }
 
-.h1{
-    font-size: 2rem;
-    color: cyan;
+h1{
+    font-size: 3rem;
+    color: rgb(88, 184, 184);
+}
+
+button{
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 5px;
+    cursor: pointer;   
+    transition: background-color 0.3s ease;
+}
+
+.add-button {
+    background-color: rgb(88, 184, 184);
+    color: rgb(240, 240, 240);
+    border: none;
+}
+
+input{
+    font-size: 1.3rem;
+    padding: 5px;
+    width: 50%;
+}
+
+li{
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    list-style-type: none;
+    font-size: 1.3rem;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+}
+
+ol {
+    padding: 0;
+}
+
+.text {
+    flex: 1;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    min-width: 20px;
+    min-height: 20px;
+    accent-color: rgb(88, 184, 184);
+    color: white;
+    cursor: pointer;
+}
+
+.delete-button {
+    background-color: rgb(216, 25, 25);
+    color: rgb(240, 240, 240);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
 }

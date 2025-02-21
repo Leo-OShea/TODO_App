@@ -12,7 +12,7 @@ import '../styles/ToDoList.css';
 
 function ToDoList(){
     
-    const [tasks, setTasks] = useState<string[]>([]);
+    const [tasks, setTasks] = useState<string[]>(['Thing 1', 'Thing 2', 'Thing 3']);
     const [newTask, setNewTask] = useState(''); 
 
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>){
@@ -24,14 +24,24 @@ function ToDoList(){
             setTasks(t => [...t, newTask]);
             setNewTask("");
         }
+    }                       
+
+    // '_': The underscore is a convention to indicate that the parameter is not being used.
+    // The 'filter' method iterates over each element in the 'tasks' array and applies a 
+    // specified condition to determine which elements should be included in the new array.
+    function handleDeleteTask(index: number){
+        const updatedTasks = tasks.filter((_, i) => i !== index);
+        setTasks(updatedTasks);
     }
 
-    function handleDeleteTask(index: number){
-        // #TO-DO: Implement task deletion
-    }
+    // if checkbox is checked, add a 'strikethrough' to the text
+    // if checkbox is unchecked, remove the 'strikethrough' on the text
+    function handleCheckboxClick(index: number){
+        // #TO_DO
+    }        
     
     return (
-        <div className='tDoList'>
+        <div className='to-do-list'>
 
             <h1>To-Do List</h1>
 
@@ -44,8 +54,10 @@ function ToDoList(){
                 {tasks.map((task, index) =>
                     <li key ={index}>
                         <span className='text'>{task}</span>
+                        {/* might want to change 'input' to 'label' ? 
+                        W3Schools: "Always add the <label> tag for best accessibility practices!"*/}
+                        <input type="checkbox" onClick={() => handleCheckboxClick(index)}></input> 
                         <button className='delete-button' onClick={() => handleDeleteTask(index)}>X</button>
-                        {/* <button className='complete-button' onClick={() => handleDeleteTask(index)}>X</button> */}
                     </li>
                 
                 )}
