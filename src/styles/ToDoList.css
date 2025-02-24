@@ -42,7 +42,14 @@ ol {
 }
 
 .text {
+    /* grows and shrinks */
     flex: 1;
+}
+
+.completed { 
+    flex: 1;
+    text-decoration: line-through;
+    color: rgb(167, 167, 167);
 }
 
 input[type="checkbox"] {
