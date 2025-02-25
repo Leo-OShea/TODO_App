@@ -10,23 +10,13 @@ import '../styles/ToDoList.css';
 // This ensures that the function is called only when the event is triggered.
 type Task = { id: number, text: string, completed: boolean };
 
-var length = 0;
+var assignID = 0;
 
-function ToDoList(){
+export default function ToDoList(){
 
     const [tasks, setTasks] = useState<Task[]>([]);
-    // const [tasks, setTasks] = useState<{ text: string, completed: boolean }[]>([
-    //     { text: 'Thing 1', completed: false },
-    //     { text: 'Thing 2', completed: false },
-    //     { text: 'Thing 3', completed: false }
-    // ]);
-    // when completed is true, add a 'strikethrough' to the text 
-    // e.g., in css .task.completed { text-decoration: line-through; }
+    
     const [newTask, setNewTask] = useState(''); 
-
-    // We used the useState hook to track the boolean state of the checkbox.
-    // The initial state of the checkbox is false (unchecked))
-    // const [isChecked, setIsChecked] = useState(false);
 
     // Update the newTask state with the input value
     function handleInputChange(event: React.ChangeEvent<HTMLInputElement>){
@@ -35,15 +25,11 @@ function ToDoList(){
 
     // Add a new task to the tasks array
     function handleAddTask(){
-        console.log('id assigned:' + length);
         if(newTask.trim() !== ""){
             // The spread operator (...) copies the tasks array and adds the new task to it
-            setTasks(t => [...t, { id: length, text: newTask, completed: false }]);
+            setTasks(t => [...t, { id: assignID, text: newTask, completed: false }]);
         }
-        length++;
-        console.log('new length:' + length);
-        console.log(newTask);
-        console.log(tasks);
+        assignID++;
     }                       
 
     // '_': The underscore is a convention to indicate that the parameter is not being used.
@@ -53,21 +39,7 @@ function ToDoList(){
     function handleDeleteTask(id: number){
         const updatedTasks = tasks.filter((_, i) => i !== id);
         setTasks(updatedTasks);
-        console.log(updatedTasks);
     }
-
-    // if checkbox is checked, add a 'strikethrough' to the text
-    // if checkbox is unchecked, remove the 'strikethrough' on the text
-    // right now this checks all the checkboxes at once
-    // use index maybe?
-    // const handleCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     if (event.target.checked) {
-    //         console.log('✅ Checkbox is checked');
-    //       } else {
-    //         console.log('⛔️ Checkbox is NOT checked');
-    //       }
-    //     //   setIsChecked(current => !current);
-    // }
 
     // if checkbox is checked, add a 'strikethrough' to the text
     // if checkbox is unchecked, remove the 'strikethrough' on the text
@@ -106,4 +78,4 @@ function ToDoList(){
     )
 }
 
-export default ToDoList;
+export type { Task }; // Export the Task type for testing purposes
