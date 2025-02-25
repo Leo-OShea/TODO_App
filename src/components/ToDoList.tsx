@@ -59,6 +59,7 @@ export default function ToDoList(){
                         <span className={task.completed ? 'completed' : 'text'} data-testid='task-test-id'>{task.text}</span>
                         <input type="checkbox" onChange={() => handleCheckboxClick(task.id)} checked={task.completed} ></input> 
                         <button className='delete-button' onClick={() => handleDeleteTask(index)}>X</button>
+                        
                     </li>
                 )}
             </ol>
