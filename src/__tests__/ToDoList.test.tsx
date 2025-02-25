@@ -1,84 +1,77 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ToDoList from '../components/ToDoList';
+import userEvent from '@testing-library/user-event'
 
+import ToDoList from '../components/ToDoList';
 import { Task } from '../components/ToDoList';
 
-// https://youtu.be/8Xwq35cPwYg?si=3yJdpiJ4Iw27OlP5
-// https://testing-library.com/docs/queries/about/
-// https://github.com/testing-library/jest-dom
-
 describe('ToDoList', () => {
-    test('Renders ToDoList component', () => {
-        render(<ToDoList />);
 
-        screen.debug();
+    beforeEach(() => {
+        render(<ToDoList />);
+    });
+    
+    test('Renders ToDoList component', () => {
         const heading = screen.getByRole('heading');
         const input = screen.getByPlaceholderText(/enter a task/i);
         const addButton = screen.getByText(/add task/i);
 
         expect(heading).toBeInTheDocument();
-        expect(heading).toHaveTextContent(/to-do list/i); // case-insensitive regex
+        expect(heading).toHaveTextContent(/to-do list/i); 
 
         expect(input).toBeInTheDocument();
         expect(addButton).toBeInTheDocument();
     });
 
-    test('Adding a new task', () => {
-        render(<ToDoList />);
+    test('Adding a new task', async () => {
+        const user = userEvent.setup()
         
         const input = screen.getByPlaceholderText(/enter a task/i);
-        const addButton = screen.getByText(/add task/i);
-
-        fireEvent.change(input, { target: { value: 'Task 1' } });
-        fireEvent.click(addButton);
-
+        const addButton = screen.getByRole('button', { name: /add task/i });
+        await user.type(input, 'Task 1');
+        await user.click(addButton);
         const task = screen.getByText(/Task 1/i);
+
         expect(task).toBeInTheDocument();
     });
 
-    test('Marking a task as completed', () => {
-        render(<ToDoList />);
+    test('Marking a task as completed', async () => {
+        const user = userEvent.setup()
 
         // adding a task
         const input = screen.getByPlaceholderText(/enter a task/i);
-        const addButton = screen.getByText(/add task/i);
-        fireEvent.change(input, { target: { value: 'Task 1' } });
-        fireEvent.click(addButton);
+        const addButton = screen.getByRole('button', { name: /add task/i });
+        await user.type(input, 'Task 1' );
+        await user.click(addButton);
         const task = screen.getByText(/Task 1/i);
         expect(task).toBeInTheDocument();
 
         const checkbox = screen.getByRole('checkbox');
 
-        fireEvent.click(checkbox);
+        await user.click(checkbox);
 
         expect(checkbox).toBeChecked();
-
-        // this commented code fails
-        // usually would not test styles (visuals) in unit tests, only functionality
-        // expect(task.textContent).toHaveStyle('text-decoration: line-through');
         
         expect(task).toHaveClass('completed');
     });
 
-    test('Deleting a task', () => {
-        render(<ToDoList />);
+    test('Deleting a task', async () => {
+        const user = userEvent.setup()
 
         // adding a task
         const input = screen.getByPlaceholderText(/enter a task/i);
-        const addButton = screen.getByText(/add task/i);
-        fireEvent.change(input, { target: { value: 'Task 1' } });
-        fireEvent.click(addButton);
+        const addButton = screen.getByRole('button', { name: /add task/i });
+        await user.type(input, 'Task 1');
+        await user.click(addButton);
         const task = screen.getByText(/Task 1/i);
         expect(task).toBeInTheDocument();
 
-        const deleteButton = screen.getByText('X');
+        const deleteButton = screen.getByRole('button', { name: /X/ });
 
-        fireEvent.click(deleteButton);
+        await user.click(deleteButton);
 
-        // task should NOT be in the document
-        expect(task).not.toBeInTheDocument();
+        expect(screen.queryByText(/Task 1/i)).not.toBeInTheDocument();
     });
 
 });

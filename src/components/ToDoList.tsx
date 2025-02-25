@@ -65,7 +65,7 @@ export default function ToDoList(){
                 {tasks.map((task, index) =>
                     <li key ={index}>
                         
-                        <span className={task.completed ? 'completed' : 'text'}>{task.text}</span>
+                        <span className={task.completed ? 'completed' : 'text'} data-testid='task-test-id'>{task.text}</span>
                         {/* might want to change 'input' to 'label' ? 
                         W3Schools: "Always add the <label> tag for best accessibility practices!"*/}
                         <input type="checkbox" onChange={() => handleCheckboxClick(task.id)} checked={task.completed} ></input> 
