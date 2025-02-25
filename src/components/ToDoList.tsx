@@ -28,6 +28,7 @@ export default function ToDoList(){
         if(newTask.trim() !== ""){
             // The spread operator (...) copies the tasks array and adds the new task to it
             setTasks(t => [...t, { id: assignID, text: newTask, completed: false }]);
+            setNewTask(''); // Clear the input field
         }
         assignID++;
     }                       
@@ -59,6 +60,7 @@ export default function ToDoList(){
             <div>
                 <input type='text' placeholder='Enter a task' value={newTask} onChange={handleInputChange} />
                 <button className='add-button' onClick={handleAddTask}>Add Task</button>
+                <button className='delete-all-button' onClick={() => setTasks([])}>💣</button>
             </div>
 
             <ol>

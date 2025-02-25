@@ -3,7 +3,7 @@
 }
 
 h1{
-    font-size: 3rem;
+    font-size: 6rem;
     color: rgb(88, 184, 184);
 }
 
@@ -16,19 +16,29 @@ button{
 }
 
 .add-button {
+    font-size: 2rem;
+    padding: 5px;
     background-color: rgb(88, 184, 184);
     color: rgb(240, 240, 240);
     border: none;
 }
 
+.delete-all-button {
+    border: none;
+    padding: 5px;
+    font-size: 2rem;
+    background: none;
+}
+
 input{
-    font-size: 1.3rem;
+    font-size: 2rem;
     padding: 5px;
     width: 50%;
+    border: none;
 }
 
 li{
-    font-size: 1.3rem;
+    font-size: 2rem;
     margin-bottom: 10px;
     list-style-type: none;
     font-size: 1.3rem;

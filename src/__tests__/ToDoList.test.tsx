@@ -74,4 +74,27 @@ describe('ToDoList', () => {
         expect(screen.queryByText(/Task 1/i)).not.toBeInTheDocument();
     });
 
+    test('Deleting all tasks', async () => {
+        const user = userEvent.setup()
+
+        // adding tasks
+        const input = screen.getByPlaceholderText(/enter a task/i);
+        const addButton = screen.getByRole('button', { name: /add task/i });
+        await user.type(input, 'Task 1');
+        await user.click(addButton);
+        await user.type(input, 'Task 2');
+        await user.click(addButton);
+        const task1 = screen.getByText(/Task 1/i);
+        const task2 = screen.getByText(/Task 1/i);
+        expect(task1).toBeInTheDocument();
+        expect(task2).toBeInTheDocument();
+
+        const deleteAllButton = screen.getByRole('button', { name: /💣/ });
+
+        await user.click(deleteAllButton);
+
+        expect(screen.queryByText(/Task 1/i)).not.toBeInTheDocument();
+        expect(screen.queryByText(/Task 2/i)).not.toBeInTheDocument();
+    });
+
 });
